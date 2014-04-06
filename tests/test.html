@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="../JSONref.js"></script>
+    <script type="text/javascript">
+
+        var json;
+
+        function Foo() {
+        }
+
+        function Bizz() {
+        }
+
+        JSONref.idKey = "__id";
+        JSONref.refKey = "__ref";
+        JSONref.typeKey = "__type";
+
+
+        (function () {
+            var foo = new Foo();
+
+            foo.name = "foo";
+
+            var bar = {
+                name: "bar",
+                referencedFoo: foo
+            };
+            var bizz = new Bizz;
+
+            bizz.name = "bizz";
+            bizz.referencedFoo = foo;
+
+            foo.referencedBar = bar;
+            foo.referencedBizz = bizz;
+
+            json = JSONref.stringify([bizz, [foo, bar], "blah"]);
+
+            console.log(json);
+        })();
+
+        (function () {
+            var unserialized = JSONref.parse(json);
+
+            console.log(unserialized);
+        })();
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
